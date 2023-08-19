@@ -1,10 +1,15 @@
-import express from "express";
-const app = express();
+import { SMTPServer } from "smtp-server";
+import { simpleParser } from "mailparser";
 
-app.get("/", (req, res) => {
-  res.send("Hi");
-});
+const server = new SMTPServer({
+  onData: (stream, session, callback) => {
+    simpleParser(stream, {}, (err, parsed) => {
+      if (err) console.log("Error:", err);
 
-app.listen(25, () => {
-  console.log("Running on 80");
+      console.log(parsed);
+      stream.on("end", callback);
+    });
+  },
+  disabledCommands: ["AUTH"],
 });
+server.listen(25);
