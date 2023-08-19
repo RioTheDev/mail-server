@@ -26,7 +26,7 @@ const transport = nodemailer.createTransport({
   },
 });
 const message = {
-  from: "from-example@email.com",
+  from: "info@geocraft.online",
   to: "gaming.bait1223@gmail.com",
   subject: "Subject",
   text: "Hello SMTP Email",
